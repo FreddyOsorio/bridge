@@ -2,7 +2,10 @@ import { verifyResponseSignature } from '@minka/ledger-sdk'
 import { ledgerSigner } from './ledger.js'
 
 // Populate this with the wallet handle you created
-const BANK_WALLET = 'bank1'
+//QIK COMENT
+//const BANK_WALLET = 'bank1'
+console.log('validatos -->');
+const BANK_WALLET = 'sandboxqikwalletprueba'
 
 // Factor for usd is 100
 const USD_FACTOR = 100

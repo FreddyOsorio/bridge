@@ -160,6 +160,7 @@ export async function endAction(entry) {
 }
 
 export async function saveIntent(intent) {
+  console.log('common --> saveIntent');
   return await transactionWrapper(async (client) => {
     await upsertIntent(client, { handle: intent?.data?.handle, ...intent })
   })
