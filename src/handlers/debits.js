@@ -61,7 +61,9 @@ async function processPrepareDebit(entry) {
     // Prepare for debit needs to check if the account exists, is active and hold the funds.
     // Since the core will throw an Error if the amount can not be put on hold for any reason, we
     // can try to hold the amount and catch the Error.
+
     //QIK_COMMENT Se debe llamar al MS Transferencias http://localhost:3000/debits/prepare-debit 
+    
     transaction = core.hold(
       Number(entry.account),
       entry.amount,
