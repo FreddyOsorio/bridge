@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 })
 console.log('index --> 2');
 //app.post('/credits', asyncErrorWrapper(prepareCredit))
-app.post('v2/credits', asyncErrorWrapper(prepareCredit))
+app.post('/v2/credits', asyncErrorWrapper(prepareCredit))
 console.log('index -->3');
 
 app.post('/credits/:handle/commit', asyncErrorWrapper(commitCredit))
