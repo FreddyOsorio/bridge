@@ -100,7 +100,6 @@ export function validateSchema(schema, expected) {
 export function extractAndValidateData({ entry, schema }) {
   const data = entry?.data
   console.log('validator-->extractAndValidateData-->data')
-  console.log('data -->',data,'<--');
   validateSchema(data?.schema, schema)
 
   const rawAddress = data?.schema === 'credit' ? data.target : data.source
