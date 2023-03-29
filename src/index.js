@@ -30,17 +30,23 @@ console.log('index --> 2');
 app.post('/v2/credits', asyncErrorWrapper(prepareCredit))
 console.log('index -->3');
 
-app.post('/credits/:handle/commit', asyncErrorWrapper(commitCredit))
+//app.post('/credits/:handle/commit', asyncErrorWrapper(commitCredit))
+app.post('/v2/credits/:handle/commit', asyncErrorWrapper(commitCredit))
 console.log('index -->4');
-app.post('/credits/:handle/abort', asyncErrorWrapper(abortCredit))
+//app.post('/credits/:handle/abort', asyncErrorWrapper(abortCredit))
+app.post('/v2/credits/:handle/abort', asyncErrorWrapper(abortCredit))
 console.log('index -->5');
-app.post('/debits', asyncErrorWrapper(prepareDebit))
+//app.post('/debits', asyncErrorWrapper(prepareDebit))
+app.post('/v2/debits', asyncErrorWrapper(prepareDebit))
 console.log('index -->6');
-app.post('/debits/:handle/commit', asyncErrorWrapper(commitDebit))
+//app.post('/debits/:handle/commit', asyncErrorWrapper(commitDebit))
+app.post('/v2/debits/:handle/commit', asyncErrorWrapper(commitDebit))
 console.log('index -->7');
-app.post('/debits/:handle/abort', asyncErrorWrapper(abortDebit))
+//app.post('/debits/:handle/abort', asyncErrorWrapper(abortDebit))
+app.post('/v2/debits/:handle/abort', asyncErrorWrapper(abortDebit))
 console.log('index -->8');
-app.put('/intents/:handle', asyncErrorWrapper(updateIntent))
+//app.put('/intents/:handle', asyncErrorWrapper(updateIntent))
+app.put('/v2/intents/:handle', asyncErrorWrapper(updateIntent))
 console.log('index -->9');
 app.use(handleErrors)
 
