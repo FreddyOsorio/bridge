@@ -5,7 +5,7 @@ import { ledgerSigner } from './ledger.js'
 //QIK COMENT
 //const BANK_WALLET = 'bank1'
 console.log('validatos -->');
-const BANK_WALLET = 'sandboxqikwalletprueba'
+const BANK_WALLET = 'sandboxqikwalletprueba2'
 
 // Factor for usd is 100
 const USD_FACTOR = 100
@@ -42,6 +42,7 @@ export function validateEntity(entity, signer) {
 }
 
 export function extractAndValidateAddress(address) {
+  console.log('validator-->extractAndValidateAddress-->address -->',address,'<--')
   const result = ADDRESS_REGEX.exec(address)
   if (!result) {
     throw new Error(`Invalid address, got ${address}`)
@@ -98,7 +99,8 @@ export function validateSchema(schema, expected) {
 
 export function extractAndValidateData({ entry, schema }) {
   const data = entry?.data
-
+  console.log('validator-->extractAndValidateData-->data')
+  console.log('data -->',data,'<--');
   validateSchema(data?.schema, schema)
 
   const rawAddress = data?.schema === 'credit' ? data.target : data.source

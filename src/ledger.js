@@ -57,8 +57,8 @@ export async function notifyLedger(entry, action, notifyStates) {
   }
   console.log('ledger --> notifyLedger-->custom');
   console.log('-->',custom,'<--');
-  console.log('ledger --> notifyLedger-->ntry.data.intent');
-  console.log('-->',cuntry.data.intentstom,'<--');
+  console.log('ledger --> notifyLedger-->entry.data.intent');
+  console.log('-->',entry.data.intent,'<--');
   const ledgerResponse = await ledger.intent
     .from(entry.data.intent)
     .hash()
