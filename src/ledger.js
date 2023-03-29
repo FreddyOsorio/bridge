@@ -18,25 +18,16 @@ export const ledgerSigner = {
 // Configure the Ledger SDK.
 const ledger = new LedgerSdk({
   // This is the ledger instance we are going to connect to.
-  //server: 'http://localhost:3000',
-  //QIK_COMMENT Se apunta al ledger proporcionado por CARNET
+  ledger: 'demo',
   server: 'https://cardnet.ldg-stg.one/api/v2',
-  // This is a public key of the ledger to verify requests sent
-  // by the ledger to us, or responses returned by the ledger.
-  key: ledgerSigner.public,
+  secure: {
+    aud: 'demo',
+    iss: 'mint',
+    keyPair: bankKeyPair,
+    sub: bankKeyPair.public,
+    exp: 3600
+  },
 })
-
-// Default record access.
-const recordAccess = [
-  {
-    action: 'any',
-    signer: bankKeyPair.public,
-  },
-  {
-    action: 'any',
-    bearer: bankKeyPair.public,
-  },
-]
 
 // This function is used to notify Ledger of Entry processing final statuses.
 export async function notifyLedger(entry, action, notifyStates) {
@@ -48,14 +39,12 @@ export async function notifyLedger(entry, action, notifyStates) {
   console.log('ledger --> notifyLedger-->1');
   const custom = {
     handle: entry.handle,
-    action: notifyAction.action,
     status: notifyAction.state,
     coreId: notifyAction.coreId,
     reason: notifyAction.error.reason,
     detail: notifyAction.error.detail,
     failId: notifyAction.error.failId,
   }
-
   const ledgerResponse = await ledger.intent
     .from(entry.data.intent)
     .hash()

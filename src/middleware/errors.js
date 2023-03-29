@@ -13,5 +13,7 @@ export function asyncErrorWrapper(func) {
 // and send the appropriate response to the client.
 export function handleErrors(err, req, res, next) {
   console.log(err)
-  res.sendStatus(500)
+  if (!res.headersSent) {
+    res.sendStatus(500)
+  }
 }

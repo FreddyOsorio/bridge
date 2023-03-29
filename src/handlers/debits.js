@@ -14,8 +14,7 @@ import { transactionWrapper, updateEntry } from '../persistence.js'
 import core from '../core.js'
 
 export async function prepareDebit(req, res) {
-  req.body.data.schema = 'debit'
-  const action = 'prepare-debit'
+  const action = 'prepare'
 
   let { alreadyRunning, entry } = await beginActionNew({
     request: req,
@@ -69,7 +68,7 @@ async function processPrepareDebit(entry) {
       entry.amount,
       `${entry.handle}-hold`,
     )
-    action.coreId = transaction.id
+    action.coreId = transaction.id.toString()
 
     if (transaction.status !== 'COMPLETED') {
       throw new Error(transaction.errorReason)
@@ -81,7 +80,7 @@ async function processPrepareDebit(entry) {
     console.log(error)
     action.state = 'failed'
     action.error = {
-      reason: 'bridge.unexpected',
+      reason: 'bridge.unexpected-error',
       detail: error.message,
       failId: undefined,
     }
@@ -89,7 +88,7 @@ async function processPrepareDebit(entry) {
 }
 
 export async function commitDebit(req, res) {
-  const action = 'commit-debit'
+  const action = 'commit'
   let { alreadyRunning, entry } = await beginActionExisting({
     request: req,
     action,
@@ -121,7 +120,7 @@ async function processCommitDebit(entry) {
       entry.amount,
       `${entry.handle}-release`,
     )
-    action.coreId = transaction.id
+    action.coreId = transaction.id.toString()
 
     if (transaction.status !== 'COMPLETED') {
       throw new Error(transaction.errorReason)
@@ -132,7 +131,7 @@ async function processCommitDebit(entry) {
       entry.amount,
       `${entry.handle}-debit`,
     )
-    action.coreId = transaction.id
+    action.coreId = transaction.id.toString()
 
     if (transaction.status !== 'COMPLETED') {
       throw new Error(transaction.errorReason)
@@ -145,7 +144,7 @@ async function processCommitDebit(entry) {
     //QIK_COMMENT Se debe llamar al MS Transferencias http://localhost:3000/debits/abort-debit con el disparador commit-debit
     action.state = 'error'
     action.error = {
-      reason: 'bridge.unexpected',
+      reason: 'bridge.unexpected-error',
       detail: error.message,
       failId: undefined,
     }
@@ -153,7 +152,7 @@ async function processCommitDebit(entry) {
 }
 
 export async function abortDebit(req, res) {
-  const action = 'abort-debit'
+  const action = 'abort'
   let { alreadyRunning, entry } = await beginActionExisting({
     request: req,
     action,
@@ -186,8 +185,8 @@ async function processAbortDebit(entry) {
         entry.amount,
         `${entry.handle}-release`,
       )
-      action.coreId = transaction.id
-        //QIK_COMMENT Se debe llamar al MS Transferencias http://localhost:3000/debits/abort-debit con el disparador abort-debit 
+      action.coreId = transaction.id.toString()
+
       if (transaction.status !== 'COMPLETED') {
         throw new Error(transaction.errorReason)
       }
@@ -198,7 +197,7 @@ async function processAbortDebit(entry) {
     console.log(error)
     action.state = 'error'
     action.error = {
-      reason: 'bridge.unexpected',
+      reason: 'bridge.unexpected-error',
       detail: error.message,
       failId: undefined,
     }

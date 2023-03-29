@@ -15,9 +15,7 @@ import core from '../core.js'
 
 export async function prepareCredit(req, res) {
   console.log('prepareCredit');
-  req.body.data.schema = 'credit'
-  //req.body.schema = 'credit'
-  const action = 'prepare-credit'
+  const action = 'prepare'
   console.log('prepareCredit 1');
   // Begin Action processing for new Entry which will also save it.
   let { alreadyRunning, entry } = await beginActionNew({
@@ -91,7 +89,7 @@ async function processPrepareCredit(entry) {
     console.log(error)
     action.state = 'failed'
     action.error = {
-      reason: 'bridge.unexpected',
+      reason: 'bridge.unexpected-error',
       detail: error.message,
       failId: undefined,
     }
@@ -99,7 +97,7 @@ async function processPrepareCredit(entry) {
 }
 
 export async function commitCredit(req, res) {
-  const action = 'commit-credit'
+  const action = 'commit'
   let { alreadyRunning, entry } = await beginActionExisting({
     request: req,
     action,
@@ -131,7 +129,7 @@ async function processCommitCredit(entry) {
       entry.amount,
       `${entry.handle}-credit`,
     )
-    action.coreId = transaction.id
+    action.coreId = transaction.id.toString()
 
     if (transaction.status !== 'COMPLETED') {
       throw new Error(transaction.errorReason)
@@ -143,7 +141,7 @@ async function processCommitCredit(entry) {
     console.log(error)
     action.state = 'error'
     action.error = {
-      reason: 'bridge.unexpected',
+      reason: 'bridge.unexpected-error',
       detail: error.message,
       failId: undefined,
     }
@@ -151,7 +149,7 @@ async function processCommitCredit(entry) {
 }
 
 export async function abortCredit(req, res) {
-  const action = 'abort-credit'
+  const action = 'abort'
   let { alreadyRunning, entry } = await beginActionExisting({
     request: req,
     action,
@@ -183,7 +181,7 @@ async function processAbortCredit(entry) {
     console.log(error)
     action.state = 'error'
     action.error = {
-      reason: 'bridge.unexpected',
+      reason: 'bridge.unexpected-error',
       detail: error.message,
       failId: undefined,
     }

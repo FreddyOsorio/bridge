@@ -13,7 +13,7 @@ CREATE TABLE "entries" (
     "processingAction" character varying NULL,
     "processingStart" TIMESTAMP WITHOUT TIME ZONE NULL,
     "created" TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (NOW() AT TIME ZONE 'utc'),
-    CONSTRAINT "pk_operations_handle" PRIMARY KEY ("handle")
+    CONSTRAINT "pk_entries_handle" PRIMARY KEY ("handle")
 );
 
 CREATE TABLE "intents" (
@@ -22,5 +22,5 @@ CREATE TABLE "intents" (
     "data" jsonb NOT NULL,
     "meta" jsonb NOT NULL,
     "created" TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (NOW() AT TIME ZONE 'utc'),
-    CONSTRAINT "pk_intent_handle" PRIMARY KEY ("handle")
+    CONSTRAINT "pk_intents_handle" PRIMARY KEY ("handle")
 );

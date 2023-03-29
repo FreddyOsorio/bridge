@@ -1,10 +1,4 @@
-import { verifyResponseSignature } from '@minka/ledger-sdk'
-import { ledgerSigner } from './ledger.js'
-
 // Populate this with the wallet handle you created
-//QIK COMENT
-//const BANK_WALLET = 'bank1'
-console.log('validatos -->');
 const BANK_WALLET = 'sandboxqikwalletprueba2'
 
 // Factor for usd is 100
@@ -14,38 +8,12 @@ const USD_FACTOR = 100
 const ADDRESS_REGEX =
   /^(((?<schema>[a-zA-Z0-9_\-+.]+):)?(?<handle>[a-zA-Z0-9_\-+.]+))(@(?<parent>[a-zA-Z0-9_\-+.]+))?$/
 
-// TODO: use SDK validation to check the following:
-//  - hash of event
-//  - signature of event
-//  - public key of event signer
-//  - hash of intent
-//  - signature of intent
-//  - public key of intent signer
-export function validateEntity(entity, signer) {
-  // let foundSigner = false
-  // for (let signature in entity.meta.signatures) {
-  //   verifyResponseSignature(entity, {
-  //     public: signature.public,
-  //     schema: signature.schema,
-  //   })
-  //   if (
-  //     signature.public === signer.public &&
-  //     signature.schema === signer.schema
-  //   ) {
-  //     foundSigner = true
-  //   }
-  // }
-  //
-  // if (signer && !foundSigner) {
-  //   throw new Error(`Signer ${signer} missing from signatures.`)
-  // }
-}
+export function validateEntity(entity, signer) {}
 
 export function extractAndValidateAddress(address) {
-  console.log('validator-->extractAndValidateAddress-->address -->',address,'<--')
-  const result = ADDRESS_REGEX.exec(address.handle)
+  const result = ADDRESS_REGEX.exec(address)
   if (!result) {
-    throw new Error(`Invalid address, got ${address.handle}`)
+    throw new Error(`Invalid address, got ${address}`)
   }
   const { schema, handle: account, parent } = result.groups
 
@@ -79,11 +47,10 @@ export function extractAndValidateAmount(rawAmount) {
 export function extractAndValidateSymbol(symbol) {
   // In general symbols other than usd are possible, but
   // we only support usd in the tutorial
-
-  if (symbol.handle !== 'usd') {
-    throw new Error(`Symbol usd expected, got ${symbol.handle}`)
+  if (symbol !== 'usd') {
+    throw new Error(`Symbol usd expected, got ${symbol}`)
   }
-  return symbol.handle
+  return symbol
 }
 
 export function validateAction(action, expected) {
@@ -103,10 +70,10 @@ export function extractAndValidateData({ entry, schema }) {
   console.log('validator-->extractAndValidateData-->data')
   validateSchema(data?.schema, schema)
 
-  const rawAddress = data?.schema === 'credit' ? data.target : data.source
+  const rawAddress = data?.schema === 'credit' ? data.target.handle : data.source.handle
   const address = extractAndValidateAddress(rawAddress)
   const amount = extractAndValidateAmount(data.amount)
-  const symbol = extractAndValidateSymbol(data.symbol)
+  const symbol = extractAndValidateSymbol(data.symbol.handle)
 
   return {
     address,

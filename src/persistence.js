@@ -4,11 +4,12 @@ let pool
 
 export async function init() {
   pool = new pg.Pool({
-    user: 'bridge-service',
-    host: 'localhost',
-    database: 'bridge-service',
-    password: 'bridge-service',
-    port: 5433,
+
+    user: 'bridge_service',
+    host: 'database-1.cluster-c412hrenus5z.us-east-2.rds.amazonaws.com',
+    database: 'bridge_service',
+    password: 'bridge_service',
+    port: 5432,
   })
 
   pool.on('error', (err, client) => {
