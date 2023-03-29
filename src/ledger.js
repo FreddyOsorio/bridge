@@ -4,14 +4,14 @@ const { LedgerSdk } = ledgerSdk
 
 // Populate this object with bank keys you have created previously
 const bankKeyPair = {
-  schema: 'ed25519',
-  public: 'FPnQ9Hsunijk9CUvq9KidjOLxCt/te8ZPPA6gOdNKhI=',
-  secret: 'HYf+A7gKvAPBGOnZh89NvCW88rZfi69y5yU7Ujiq178=',
+  format: 'ed25519-raw',
+  public: '5gmLmbTBSTaoT/JYbonYpkP7NeIbIXxvQ8QJM6rxdeY=',
+  secret: 'UyZo8GQruVU20mSL0DpaOMBgsSkiE+lh8YCqI/Fi42k=',
 }
 
 // Populate with Ledger public key data.
 export const ledgerSigner = {
-  schema: 'ed25519',
+  format: 'ed25519-raw',
   public: 'FPnQ9Hsunijk9CUvq9KidjOLxCt/te8ZPPA6gOdNKhI=',
 }
 
