@@ -22,7 +22,7 @@ const ledger = new LedgerSdk({
   server: 'https://cardnet.ldg-stg.one/api/v2',
   secure: {
     aud: 'cardnet',
-    iss: 'mint',
+    iss: 'demowalletqikawsuno',
     keyPair: bankKeyPair,
     sub: bankKeyPair.public,
     exp: 3600

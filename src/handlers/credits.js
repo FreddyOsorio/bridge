@@ -71,11 +71,11 @@ async function processPrepareCredit(entry) {
       await updateEntry(client, entry)
     })
     console.log('processPrepareCredit 8');
-    //QIK_COMMENT Se debe llamar al MS Transferencias http://localhost:3000/credits/prepare-credit 
-
+    
     // Save Intent from Entry.
     await saveIntent(entry.data.intent)
     console.log('processPrepareCredit 9');
+    //QIK_COMMENT Se debe llamar al MS Transferencias http://localhost:3000/credits/prepare-credit 
     // Processing prepare Action for Credit Entry in the core is simple and
     // only checks if the account exists and is active. If something is wrong,
     // an Error will be thrown, and we will catch it later.

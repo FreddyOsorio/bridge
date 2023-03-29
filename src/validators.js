@@ -1,5 +1,5 @@
 // Populate this with the wallet handle you created
-const BANK_WALLET = 'sandboxqikwalletprueba2'
+const BANK_WALLET = 'demowalletqikawsuno'
 
 // Factor for usd is 100
 const USD_FACTOR = 100
