@@ -18,10 +18,10 @@ export const ledgerSigner = {
 // Configure the Ledger SDK.
 const ledger = new LedgerSdk({
   // This is the ledger instance we are going to connect to.
-  ledger: 'demo',
+  ledger: 'cardnet',
   server: 'https://cardnet.ldg-stg.one/api/v2',
   secure: {
-    aud: 'demo',
+    aud: 'cardnet',
     iss: 'mint',
     keyPair: bankKeyPair,
     sub: bankKeyPair.public,
