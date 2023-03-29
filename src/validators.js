@@ -79,10 +79,11 @@ export function extractAndValidateAmount(rawAmount) {
 export function extractAndValidateSymbol(symbol) {
   // In general symbols other than usd are possible, but
   // we only support usd in the tutorial
-  if (symbol !== 'usd') {
-    throw new Error(`Symbol usd expected, got ${symbol}`)
+
+  if (symbol.handle !== 'usd') {
+    throw new Error(`Symbol usd expected, got ${symbol.handle}`)
   }
-  return symbol
+  return symbol.handle
 }
 
 export function validateAction(action, expected) {
