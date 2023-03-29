@@ -41,11 +41,11 @@ const recordAccess = [
 // This function is used to notify Ledger of Entry processing final statuses.
 export async function notifyLedger(entry, action, notifyStates) {
   const notifyAction = entry.actions[action]
-
+  console.log('ledger --> notifyLedger');
   if (!notifyStates.includes(notifyAction.state)) {
     return
   }
-
+  console.log('ledger --> notifyLedger-->1');
   const custom = {
     handle: entry.handle,
     action: notifyAction.action,
@@ -55,7 +55,10 @@ export async function notifyLedger(entry, action, notifyStates) {
     detail: notifyAction.error.detail,
     failId: notifyAction.error.failId,
   }
-  console.log('ledger --> notifyLedger');
+  console.log('ledger --> notifyLedger-->custom');
+  console.log('-->',custom,'<--');
+  console.log('ledger --> notifyLedger-->ntry.data.intent');
+  console.log('-->',cuntry.data.intentstom,'<--');
   const ledgerResponse = await ledger.intent
     .from(entry.data.intent)
     .hash()
