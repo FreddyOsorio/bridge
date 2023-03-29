@@ -43,9 +43,9 @@ export function validateEntity(entity, signer) {
 
 export function extractAndValidateAddress(address) {
   console.log('validator-->extractAndValidateAddress-->address -->',address,'<--')
-  const result = ADDRESS_REGEX.exec(address)
+  const result = ADDRESS_REGEX.exec(address.handle)
   if (!result) {
-    throw new Error(`Invalid address, got ${address}`)
+    throw new Error(`Invalid address, got ${address.handle}`)
   }
   const { schema, handle: account, parent } = result.groups
 
