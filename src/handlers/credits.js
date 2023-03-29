@@ -14,6 +14,7 @@ import {
 import core from '../core.js'
 
 export async function prepareCredit(req, res) {
+  console.log('prepareCredit');
   req.body.data.schema = 'credit'
   //req.body.schema = 'credit'
   const action = 'prepare-credit'
